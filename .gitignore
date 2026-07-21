@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+dist/
+build/
+*.egg
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyright/
+.coverage
+htmlcov/
+.tox/
+
+# Environment / secrets
+.env
+.venv
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Test artifacts (keep folder structure via .gitkeep)
+artifacts/logs/*
+!artifacts/logs/.gitkeep
+artifacts/screenshots/*
+!artifacts/screenshots/.gitkeep
+artifacts/traces/*
+!artifacts/traces/.gitkeep
+artifacts/videos/*
+!artifacts/videos/.gitkeep
+artifacts/allure-results/*
+!artifacts/allure-results/.gitkeep
+artifacts/allure-report/*
+!artifacts/allure-report/.gitkeep

@@ -1,0 +1,57 @@
+[project]
+name = "automation"
+version = "0.1.0"
+description = "Python UI + API test automation framework"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx",
+    "pydantic",
+    "pydantic-settings",
+    "pyyaml",
+    "tenacity",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-xdist",
+    "playwright",
+    "pytest-playwright",
+    "pytest-httpserver",
+    "allure-pytest",
+    "pytest-html",
+    "faker",
+    "ruff",
+    "pyright",
+    "pre-commit",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.30,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = [
+    "--import-mode=importlib",
+]
+markers = [
+    "smoke: fast critical-path checks",
+    "regression: full regression suite",
+    "ui: UI tests",
+    "api: API tests",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pyright]
+include = ["src"]
+pythonVersion = "3.12"
+typeCheckingMode = "basic"
