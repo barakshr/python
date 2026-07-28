@@ -36,6 +36,8 @@ testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = [
     "--import-mode=importlib",
+    "--headed",
+    "-s",
 ]
 markers = [
     "smoke: fast critical-path checks",
