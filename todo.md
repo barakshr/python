@@ -37,7 +37,7 @@ Items below match the agreed plan: libs + tree are already scaffolded; everythin
   - Base URL, headers, timeouts, request/response logging, retries via tenacity
   - Raise `ApiClientError` on failures
 
-- [ ] **6. UI base helpers (`core/ui/`)**
+- [x] **6. UI base helpers (`core/ui/`)**
   - Implement thin `BasePage` (and optional `BaseComponent`) wrapping Playwright
   - Common actions only (`goto`, `click`, `fill`, …) — no app-specific locators
 
