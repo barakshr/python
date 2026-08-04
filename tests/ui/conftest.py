@@ -15,7 +15,7 @@ def before_after_test(page: Page, settings: Settings):
 
 
 @pytest.fixture
-def home_page(page: Page, settings: Settings):
+def home_page(page: Page, settings: Settings, before_after_test: before_after_test):
     return HomePage(page, base_url=settings.base_url)
 
 

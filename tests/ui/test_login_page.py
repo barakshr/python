@@ -13,5 +13,5 @@ PASSWORD = "SuperSecretPassword!"
 @pytest.mark.smoke
 class TestLoginPage:
     def test_flow(self, home_page: HomePage) -> None:
-        # home_page.search_item("pen")
+        home_page.search_item("pen")
         pass

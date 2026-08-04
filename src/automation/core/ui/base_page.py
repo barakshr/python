@@ -5,11 +5,12 @@ from __future__ import annotations
 from typing import Literal, TypeVar
 
 from playwright.sync_api import Locator, Page
+from automation.core.ui.base_actions import BaseActions
 
 TPage = TypeVar("TPage", bound="BasePage")
 
 
-class BasePage:
+class BasePage(BaseActions):
     """Thin wrapper around a Playwright ``Page``.
 
     Holds the page (and optional base URL) and exposes common interactions.
@@ -17,8 +18,8 @@ class BasePage:
     """
 
     def __init__(self, page: Page, base_url: str = "") -> None:
-        self.page = page
         self.base_url = base_url.rstrip("/")
+        super().__init__(page)
 
     def as_page(self, page_cls: type[TPage]) -> TPage:
         """Wrap the same Playwright page as another page object."""
@@ -34,46 +35,6 @@ class BasePage:
             suffix = path if path.startswith("/") else f"/{path}"
             url = f"{self.base_url}{suffix}" if self.base_url else suffix
         self.page.goto(url)
-
-    def click(self, locator: Locator) -> None:
-        locator.click()
-
-    def fill(self, locator: Locator, value: str) -> None:
-        locator.fill(value)
-
-    def check(self, locator: Locator) -> None:
-        locator.check()
-
-    def uncheck(self, locator: Locator) -> None:
-        locator.uncheck()
-
-    def select_option(
-        self,
-        locator: Locator,
-        value: str | list[str] | None = None,
-        *,
-        label: str | list[str] | None = None,
-        index: int | list[int] | None = None,
-    ) -> None:
-        locator.select_option(value=value, label=label, index=index)
-
-    def press(self, locator: Locator, key: str) -> None:
-        locator.press(key)
-
-    def text_content(self, locator: Locator) -> str | None:
-        return locator.text_content()
-
-    def inner_text(self, locator: Locator) -> str:
-        return locator.inner_text()
-
-    def get_attribute(self, locator: Locator, name: str) -> str | None:
-        return locator.get_attribute(name)
-
-    def is_visible(self, locator: Locator) -> bool:
-        return locator.is_visible()
-
-    def is_enabled(self, locator: Locator) -> bool:
-        return locator.is_enabled()
 
     def wait_for_load_state(
         self,
