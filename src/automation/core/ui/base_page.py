@@ -19,7 +19,7 @@ class BasePage(BaseActions):
 
     def __init__(self, page: Page, base_url: str = "") -> None:
         self.base_url = base_url.rstrip("/")
-        super().__init__(page)
+        self.page = page
 
     def as_page(self, page_cls: type[TPage]) -> TPage:
         """Wrap the same Playwright page as another page object."""

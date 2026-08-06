@@ -2,9 +2,6 @@ from playwright.sync_api import Locator, Page
 
 
 class BaseActions:
-    def __init__(self, page: Page) -> None:
-        self.page = page
-
     def fill(self, locator: Locator, value: str) -> None:
         locator.fill(value)
 
