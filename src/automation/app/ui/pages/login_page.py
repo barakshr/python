@@ -1,13 +1,11 @@
 from __future__ import annotations
-from automation.app.ui import HomePage
-from automation.core.ui import BasePage
-from automation.app.ui.components.search_component import SearchComponent
-from automation.core.ui import BasePage
-from playwright.sync_api import Locator
-from playwright.sync_api import Page
-from automation.core.config.settings import get_settings
 
 import json
+
+from playwright.sync_api import Locator
+
+from automation.core.config.settings import get_settings
+from automation.core.ui import BasePage
 
 
 class LoginPage(BasePage):

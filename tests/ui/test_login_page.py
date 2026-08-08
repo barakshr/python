@@ -15,4 +15,5 @@ class TestLoginPage:
     def test_login(self, login_page: LoginPage):
         login_page.login()
         home_page = login_page.as_page(HomePage)
-        products_page = home_page.top_bar_component.goto_products()
+        products_page = home_page.top_bar_component.goto_products(via_link=True)
+        pass
