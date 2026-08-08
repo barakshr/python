@@ -7,4 +7,4 @@ from automation.core.config import Settings
 
 @pytest.fixture(scope="session")
 def settings() -> Settings:
-    return Settings()
+    return Settings(base_url="")

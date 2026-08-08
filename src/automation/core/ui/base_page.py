@@ -17,24 +17,12 @@ class BasePage(BaseActions):
     Subclass in ``app/ui/pages`` with product-specific locators and actions.
     """
 
-    def __init__(self, page: Page, base_url: str = "") -> None:
-        self.base_url = base_url.rstrip("/")
+    def __init__(self, page: Page) -> None:
         self.page = page
 
     def as_page(self, page_cls: type[TPage]) -> TPage:
         """Wrap the same Playwright page as another page object."""
-        return page_cls(self.page, base_url=self.base_url)
-
-    def goto(self, path: str = "") -> None:
-        """Navigate to an absolute URL or a path joined with ``base_url``."""
-        if path.startswith(("http://", "https://")):
-            url = path
-        elif not path:
-            url = self.base_url or "/"
-        else:
-            suffix = path if path.startswith("/") else f"/{path}"
-            url = f"{self.base_url}{suffix}" if self.base_url else suffix
-        self.page.goto(url)
+        return page_cls(self.page)
 
     def wait_for_load_state(
         self,

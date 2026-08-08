@@ -5,13 +5,17 @@ from automation.app.ui.components.search_component import SearchComponent
 from automation.core.ui import BasePage
 from playwright.sync_api import Locator
 from playwright.sync_api import Page
+from automation.core.config.settings import get_settings
+
 import json
 
 
 class LoginPage(BasePage):
-    def __init__(self, page, path: str):
+    def __init__(self, page, from_setting_file: bool = True):
         super().__init__(page)
-        self.goto(path)
+        if from_setting_file:
+            page.goto(f"{get_settings().base_url}/login")
+
         self.cred = self.read_cred()
 
     def read_cred(self):
