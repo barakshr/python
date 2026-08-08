@@ -5,5 +5,5 @@ from playwright.sync_api import Locator
 from playwright.sync_api import Page
 
 
-class HomePage(BasePage):
+class CartPage(BasePage):
     pass

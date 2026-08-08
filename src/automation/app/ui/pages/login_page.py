@@ -1,46 +1,53 @@
-"""Login page for https://the-internet.herokuapp.com/login."""
-
 from __future__ import annotations
-
-from playwright.sync_api import Locator
-
+from automation.app.ui import HomePage
 from automation.core.ui import BasePage
+from automation.app.ui.components.search_component import SearchComponent
+from automation.core.ui import BasePage
+from playwright.sync_api import Locator
+from playwright.sync_api import Page
+import json
 
 
 class LoginPage(BasePage):
-    """Form Authentication login page (locators + actions only)."""
+    def __init__(self, page, path: str):
+        super().__init__(page)
+        self.goto(path)
+        self.cred = self.read_cred()
 
-    PATH = "/login"
-
-    def open(self) -> None:
-        self.goto(self.PATH)
-
-    @property
-    def username_input(self) -> Locator:
-        return self.page.get_by_label("Username")
-
-    @property
-    def password_input(self) -> Locator:
-        return self.page.get_by_label("Password")
+    def read_cred(self):
+        with open("cred.json", "r", encoding="utf-8") as file:
+            data = json.load(file)
+        return {"user": data["user"], "pass": data["pass"]}
 
     @property
-    def login_button(self) -> Locator:
-        return self.page.get_by_role("button", name="Login")
+    def email_input(self) -> Locator:
+        return self.page.locator("[data-qa='login-email']")
 
     @property
-    def flash_message(self) -> Locator:
-        return self.page.locator("#flash")
+    def password_input(self):
+        return self.page.locator("[data-qa='login-password']")
 
-    def fill_username(self, username: str) -> None:
-        self.fill(self.username_input, username)
+    @property
+    def login_button(self):
+        return self.page.locator("[data-qa='login-button']")
 
-    def fill_password(self, password: str) -> None:
-        self.fill(self.password_input, password)
+    def fill_email(self, email: str = ""):
+        if email:
+            self.fill(self.email_input, email)
+        else:
+            self.fill(self.email_input, self.cred["user"])
 
-    def click_login(self) -> None:
-        self.click(self.login_button)
+    def fill_password(self, password: str = ""):
+        if password:
+            self.fill(self.password_input, password)
+        else:
+            self.fill(self.password_input, self.cred["pass"])
 
-    def login(self, username: str, password: str) -> None:
-        self.fill_username(username)
+    def login(
+        self,
+        email: str = "",
+        password: str = "",
+    ):
+        self.fill_email(email)
         self.fill_password(password)
-        self.click_login()
+        self.click(self.login_button)

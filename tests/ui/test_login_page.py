@@ -1,6 +1,6 @@
 """UI tests for the Form Authentication login page."""
 
-from automation.app.ui import HomePage
+from automation.app.ui import HomePage, LoginPage
 import pytest
 from playwright.sync_api import expect
 
@@ -12,6 +12,7 @@ PASSWORD = "SuperSecretPassword!"
 @pytest.mark.ui
 @pytest.mark.smoke
 class TestLoginPage:
-    def test_flow(self, home_page: HomePage) -> None:
-        home_page.search_component.search_item("pen")
+    def test_login(self, login_page: LoginPage):
+        login_page.login()
+        home_page = login_page.as_page(HomePage)
         pass
