@@ -7,12 +7,12 @@ from automation.app.ui import HomePage
 
 
 @pytest.fixture(scope="function")
-def before_after_test(page: Page, settings: Settings):
+def login_page(page: Page):
     print("before_test")
-    yield
+    yield LoginPage(page)
     print("after_test")
 
 
-@pytest.fixture
-def login_page(page: Page, settings: Settings, before_after_test: None):
-    return LoginPage(page)
+# @pytest.fixture
+# def login_page(page: Page, settings: Settings, before_after_test: None):
+#     return LoginPage(page)

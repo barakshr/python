@@ -1,6 +1,7 @@
 """App-agnostic Playwright page wrapper. Product locators belong in app/ui/pages."""
 
 from __future__ import annotations
+from playwright.sync_api import expect
 
 from typing import Literal, TypeVar
 
@@ -36,3 +37,7 @@ class BasePage(BaseActions):
     def screenshot(self, path: str) -> bytes:
         """Capture a screenshot to ``path``. Failure attachment belongs in reporting."""
         return self.page.screenshot(path=path)
+
+    def check_url(self, expected_url: str):
+        expect(self.page).to_have_url(expected_url)
+        pass
