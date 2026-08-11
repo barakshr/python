@@ -2,8 +2,8 @@
 
 from time import sleep
 import pytest
-
 from automation.app.ui import HomePage, LoginPage
+from automation.app.ui.assertions.login_check import LoginCheck
 
 
 @pytest.mark.ui
@@ -32,6 +32,10 @@ class TestLoginPage:
         home_page = login_page.as_page(HomePage)
         home_page.check_url("https://automationexercise.com/login")
 
-    def test_login(self, login_page: LoginPage):
+    def test_login_pass(self, login_page: LoginPage):
         login_page.login()
-        pass
+        LoginCheck(login_page=login_page).assert_login_success()
+
+    def test_login_fail(self, login_page: LoginPage):
+        login_page.login(email="user1@bla.com", password="bad")
+        LoginCheck(login_page=login_page).assert_login_falied()

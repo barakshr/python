@@ -26,11 +26,11 @@ class LoginPage(BasePage):
         return self.page.locator("[data-qa='login-email']")
 
     @property
-    def password_input(self):
+    def password_input(self) -> Locator:
         return self.page.locator("[data-qa='login-password']")
 
     @property
-    def login_button(self):
+    def login_button(self) -> Locator:
         return self.page.locator("[data-qa='login-button']")
 
     def fill_email(self, email: str = ""):

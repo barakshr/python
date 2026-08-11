@@ -7,11 +7,12 @@ from typing import Literal, TypeVar
 
 from playwright.sync_api import Locator, Page
 from automation.core.ui.base_actions import BaseActions
+from automation.core.ui.base_assertion import BaseAssertion
 
 TPage = TypeVar("TPage", bound="BasePage")
 
 
-class BasePage(BaseActions):
+class BasePage(BaseActions, BaseAssertion):
     """Thin wrapper around a Playwright ``Page``.
 
     Holds the page (and optional base URL) and exposes common interactions.
