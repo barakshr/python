@@ -19,6 +19,7 @@ htmlcov/
 # Environment / secrets
 .env
 .venv
+auth.json
 
 # IDE
 .idea/
