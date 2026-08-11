@@ -1,21 +1,22 @@
 """UI tests for the Form Authentication login page."""
 
 import pytest
-from playwright.sync_api import Page
 
 from automation.app.ui import HomePage, LoginPage
-from automation.core.config.settings import get_settings
 
 
 @pytest.mark.ui
 @pytest.mark.smoke
 class TestLoginPage:
-    def test_check_products(self, authenticated_page: Page):
-        authenticated_page.goto(get_settings().base_url)
-        home_page = HomePage(authenticated_page)
-        products_page = home_page.top_bar_component.goto_products(via_link=True)
+    def test_check_products(self, authenticated_home_page: HomePage):
+        products_page = authenticated_home_page.top_bar_component.goto_products(via_link=True)
         products_page.check_url("https://automationexercise.com/products")
 
+    def test_check_prod(self, authenticated_home_page: HomePage):
+        products_page = authenticated_home_page.top_bar_component.goto_products(via_link=True)
+        products_page.check_url("https://automationexercise.com/products")
+
+    @pytest.mark.skip
     @pytest.mark.parametrize(
         "user, password",
         [

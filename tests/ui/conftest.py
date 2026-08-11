@@ -3,9 +3,8 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import Browser, Page
 
-from automation.app.ui import LoginPage
-
-pytest_plugins = ["automation.core.ui.pytest_plugin"]
+from automation.app.ui import HomePage, LoginPage
+from automation.core.config.settings import get_settings
 
 AUTH_FILE = Path("auth.json")
 
@@ -22,11 +21,12 @@ def auth_storage_state(browser: Browser) -> Path:
 
 
 @pytest.fixture
-def authenticated_page(browser: Browser, auth_storage_state: Path):
+def authenticated_home_page(browser: Browser, auth_storage_state: Path):
     """Fresh browser context that is already logged in."""
     context = browser.new_context(storage_state=str(auth_storage_state))
     page = context.new_page()
-    yield page
+    page.goto(get_settings().base_url)
+    yield HomePage(page)
     context.close()
 
 
